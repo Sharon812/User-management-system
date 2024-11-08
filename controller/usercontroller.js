@@ -20,6 +20,15 @@ const loadregistrationpage = async(req,res) => {
     }
 }
 
+//login page rendering
+const loginpage = async(req,res) => {
+    try {
+        res.render('loginpage')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 //to insert user
 const insertUser = async(req,res) => {
     try {
@@ -54,10 +63,22 @@ const landingpage = async (req,res) => {
         console.log(error.message)
     }
 }
+//to render to create new user in login page
+const rendertoregis = async (req,res) => {
+     res.render('registration')
+}
+
+//to render the login page on landing page
+const loginrend = async (req,res) => {
+    res.render('loginpage')
+}
 
 //exporting
 module.exports ={
     loadregistrationpage,
     insertUser,
-    landingpage
+    landingpage,
+    loginpage,
+    rendertoregis,
+    loginrend
 } 

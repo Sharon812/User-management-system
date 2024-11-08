@@ -19,6 +19,14 @@ user_route.post('/register',usercontroller.insertUser);
 //landing page route
 user_route.get('/',usercontroller.landingpage);
 
+//to go to login page from landingp page
+user_route.get('/',usercontroller.loginrend)
+
+//login page route
+user_route.get('/login',usercontroller.loginpage);
+
+//to go to registeration page from login page'
+user_route.get('/register',usercontroller.loadregistrationpage)
 
 //exporting routes
 module.exports = user_route;
