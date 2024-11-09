@@ -30,3 +30,4 @@ user_route.get('/register',usercontroller.loadregistrationpage)
 
 //exporting routes
 module.exports = user_route;
+////
