@@ -11,7 +11,9 @@ const bodyparser = require('body-parser')
 user_route.use(bodyparser.json())
 user_route.use(bodyparser.urlencoded({extended:true}))
 
+//user controller
 const usercontroller = require('../controller/usercontroller');
+//admin controller
 const admincontroller = require('../controller/admincontroller')
 
 //register route
@@ -30,7 +32,9 @@ user_route.get('/login',usercontroller.loginpage);
 //to go to registeration page from login page'
 user_route.get('/register',usercontroller.loadregistrationpage)
 
+//admin login page route 
 user_route.get('/adminlogin',admincontroller.adminregist)
+
 //exporting routes
 module.exports = user_route;
 ////
