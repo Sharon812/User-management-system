@@ -28,6 +28,8 @@ user_route.get('/',usercontroller.loginrend)
 
 //login page route
 user_route.get('/login',usercontroller.loginpage);
+//user home page verification
+user_route.post('/login',usercontroller.verifylogin)
 
 //to go to registeration page from login page'
 user_route.get('/register',usercontroller.loadregistrationpage)
@@ -35,6 +37,8 @@ user_route.get('/register',usercontroller.loadregistrationpage)
 //admin login page route 
 user_route.get('/adminlogin',admincontroller.adminregist)
 
+//user home page route
+user_route.get('/home',usercontroller.renderuserhome)
 //exporting routes
 module.exports = user_route;
 ////

@@ -49,7 +49,7 @@ body{
   bottom: -80px;
 }
 form{
-  height: 690px;
+  height: 190px;
   width: 400px;
   background-color: rgba(255,255,255,0.13);
   position: absolute;
@@ -77,45 +77,67 @@ form h3{
 }
 
 label{
-  display: block;
-  margin-top: 30px;
-  font-size: 16px;
-  font-weight: 500;
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
 }
 input{
-  display: block;
-  height: 50px;
-  width: 100%;
-  background-color: rgba(255,255,255,0.07);
-  border-radius: 3px;
-  padding: 0 10px;
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 300;
-  margin-bottom: 4%;
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 4%;
 }
 ::placeholder{
-  color: #e5e5e5;
+    color: #e5e5e5;
 }
 button{
-  margin-top: 20px;
-  width: 100%;
-  background-color: #ffffff;
-  color: #080710;
-  padding: 15px 0;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.social{
+  margin-top: 30px;
+  display: flex;
+}
+.social div{
+  background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+.social div:hover{
+  background-color: rgba(255,255,255,0.47);
+}
+.social .fb{
+  margin-left: 25px;
+}
+.social i{
+  margin-right: 4px;
 }
 .newuser{
-  font-size: 13px;
-  padding-left: 13%;
-  padding-top: 10%;
+    font-size: 13px;
+    padding-left: 13%;
+    padding-top: 10%;
 
 }
 .newuser:hover{
-  color: #ffffffad;
+    color: #ffffffad;
 }
 
   </style>
@@ -125,22 +147,15 @@ button{
       <div class="shape"></div>
       <div class="shape"></div>
   </div>
-  <form method="POST" action="/home">
-      <h3>Sign up</h3>
+  <form>
+      <h3>Hello User</h3>
 
-      <label for="name">name</label>
-      <input type="text" placeholder="Name" name="name" id="name">
-
-      <label for="Email">Email</label>
-      <input type="email" placeholder="Email"  name="email" id="username">
-
-      <label for="password">Password</label>
-      <input type="password" placeholder="password" name="password" id="password">
-
-      <label for="password">Confirm Password</label>
-      <input type="password" placeholder="passwo3rd" name="peassword" id="password">
-      <button type="submit ">Sign UP</button>
       
+      <div class="social">
+        <div class="go">View Profile</div>
+        <div class="fb">Logout</div>
+      </div>
   </form>
+  
 </body>
-<% include('../layouts/footer.ejs') %>
+<% include ('../layouts/footer.ejs') %>
