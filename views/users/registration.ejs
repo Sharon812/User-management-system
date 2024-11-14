@@ -140,7 +140,13 @@ button{
       <label for="password">Confirm Password</label>
       <input type="password" placeholder="passwo3rd" name="peassword" id="password">
       <button type="submit ">Sign UP</button>
-      
+      <% 
+      if(typeof message !== 'undefined'){
+           %>
+           <p style="color: red;"><%= message %></p>
+           <%
+      }
+       %>
   </form>
 </body>
 <% include('../layouts/footer.ejs') %>

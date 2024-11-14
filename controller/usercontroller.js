@@ -30,7 +30,6 @@ const loginpage = async(req,res) => {
         console.log(error.message);
     }
 }
-
 //to insert user
 const insertUser = async(req,res) => {
     try {
@@ -81,11 +80,11 @@ const loginrend = async (req,res) => {
 //to verify login
 const verifylogin = async (req,res) => {
     try {
-        console.log(req.body);
+        
         const email = req.body.email;
         const password = req.body.password;       
        const userdata =  await users.findOne({email:email})
-
+       console.log(req.body);
        if(userdata){
          console.log(userdata)
      const passwordmatch =  await  bycrypt.compare(password,userdata.password)
@@ -99,6 +98,7 @@ const verifylogin = async (req,res) => {
         console.log("here")
         res.render('loginpage',{message:"Email and Password is incorrect"})
        }
+
 
     } catch (error) {
         console.log(error.message);
