@@ -127,6 +127,9 @@ button{
 .social .fb{
   margin-left: 25px;
 }
+.social a{
+  text-decoration: none;
+}
 .social i{
   margin-right: 4px;
 }
@@ -140,6 +143,7 @@ button{
     color: #ffffffad;
 }
 
+
   </style>
 </head>
 <body>
@@ -148,12 +152,12 @@ button{
       <div class="shape"></div>
   </div>
   <form>
-      <h3>Hello User</h3>
+      <h3>Hello <%= user.name  %> </h3>
 
       
       <div class="social">
         <div class="go">View Profile</div>
-        <div class="fb">Logout</div>
+        <div class="fb"><a href="/logout">Logout</a></div>
       </div>
   </form>
   

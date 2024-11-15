@@ -125,7 +125,7 @@ button{
       <div class="shape"></div>
       <div class="shape"></div>
   </div>
-  <form method="POST" action="/home">
+  <form method="POST" action="">
       <h3>Sign up</h3>
 
       <label for="name">name</label>
@@ -140,13 +140,6 @@ button{
       <label for="password">Confirm Password</label>
       <input type="password" placeholder="passwo3rd" name="peassword" id="password">
       <button type="submit ">Sign UP</button>
-      <% 
-      if(typeof message !== 'undefined'){
-           %>
-           <p style="color: red;"><%= message %></p>
-           <%
-      }
-       %>
   </form>
 </body>
 <% include('../layouts/footer.ejs') %>

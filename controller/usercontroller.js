@@ -48,11 +48,10 @@ const insertUser = async(req,res) => {
 
         //saving data to databasse
         const userdata = await user.save();
-        console.log(userdata,"ho")
         if(userdata){
-            res.render('registration')
+            res.redirect('/login')
         }else{
-            res.render('registration')
+            res.render('registration',{message:"Invalid credentials"})
         }
     } catch (error) {
         console.log(error.message)
@@ -72,24 +71,21 @@ const rendertoregis = async (req,res) => {
      res.render('registration')
 }
 
-//to render the login page on landing page
-const loginrend = async (req,res) => {
-    res.render('loginpage')
-}
-
 //to verify login
 const verifylogin = async (req,res) => {
     try {
-        
         const email = req.body.email;
         const password = req.body.password;       
-       const userdata =  await users.findOne({email:email})
+       const userdata =  await users.findOne({ email:email });
        console.log(req.body);
+
        if(userdata){
-         console.log(userdata)
-     const passwordmatch =  await  bycrypt.compare(password,userdata.password)
+     const passwordmatch =  await bycrypt.compare(password,userdata.password)
+     
        if(passwordmatch){
-           res.redirect('userhomepage')
+        //setting up session
+          req.session.user_id = userdata._id;
+           res.redirect('/home')
        }else{
         res.render('loginpage',{message:"Email and password is incorrect"})
        }    
@@ -108,9 +104,21 @@ const verifylogin = async (req,res) => {
 //user home page route
 const renderuserhome = async (req,res) => {
     try {
-        res.render('userhomepage');
+    const userhome = await users.findById( req.session.user_id )
+   
+        res.render('userhomepage',{ user: userhome });
     } catch (error) {
         console.log(error)
+    }
+}
+
+//user logout page route setting
+const logoout = async (req,res) => {
+    try {
+        req.session.destroy()
+        res.redirect('/login')
+    } catch (error) {
+        console.log(error.message)
     }
 }
 
@@ -121,7 +129,7 @@ module.exports ={
     landingpage,
     loginpage,
     rendertoregis,
-    loginrend,
     renderuserhome,
-    verifylogin
+    verifylogin,
+    logoout
 } 

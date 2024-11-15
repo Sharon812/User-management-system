@@ -1,15 +1,26 @@
 const express = require('express');
 const user_route = express();
+const session = require('express-session')
+const nocache = require('nocache')
+//exporting config
+const config = require('../config/config')
+
+const auth = require('../middleware/auth')
+//setting up session
+user_route.use(session({
+    secret:"mysitesession",
+    resave:false,
+    saveUninitialized:true,
+}));
+user_route.use(nocache())
+
+//initialising bodyparserrsz
+user_route.use(express.json());
+user_route.use(express.urlencoded({ extended: true }));
 
 //setting view engine
 user_route.set('view engine','ejs')
 user_route.set('views','./views/users')
-
-
-//initialising bodyparser
-const bodyparser = require('body-parser')
-user_route.use(bodyparser.json())
-user_route.use(bodyparser.urlencoded({extended:true}))
 
 //user controller
 const usercontroller = require('../controller/usercontroller');
@@ -17,28 +28,30 @@ const usercontroller = require('../controller/usercontroller');
 const admincontroller = require('../controller/admincontroller')
 
 //register route
-user_route.get('/register',usercontroller.loadregistrationpage);
+user_route.get('/register',auth.isLogout,usercontroller.loadregistrationpage);
 user_route.post('/register',usercontroller.insertUser);
 
 //landing page route
-user_route.get('/',usercontroller.landingpage);
+user_route.get('/',auth.isLogout,usercontroller.landingpage);
 
 //to go to login page from landingp page
-user_route.get('/',usercontroller.loginrend)
+
+
 
 //login page route
-user_route.get('/login',usercontroller.loginpage);
+user_route.get('/login',auth.isLogout,usercontroller.loginpage);
 //user home page verification
 user_route.post('/login',usercontroller.verifylogin)
 
-//to go to registeration page from login page'
-user_route.get('/register',usercontroller.loadregistrationpage)
 
 //admin login page route 
 user_route.get('/adminlogin',admincontroller.adminregist)
 
 //user home page route
-user_route.get('/home',usercontroller.renderuserhome)
+user_route.get('/home',auth.isLogin,usercontroller.renderuserhome)
+
+//logout from user homepage rout
+user_route.get('/logout',usercontroller.logoout)
 //exporting routes
 module.exports = user_route;
 ////
