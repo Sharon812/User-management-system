@@ -125,21 +125,24 @@ button{
       <div class="shape"></div>
       <div class="shape"></div>
   </div>
-  <form method="POST" action="">
+  <form method="POST" action="" id="validationForm">
       <h3>Sign up</h3>
 
       <label for="name">name</label>
-      <input type="text" placeholder="Name" name="name" id="name">
+      <input type="text" placeholder="Name" name="name" id="name" required>
 
       <label for="Email">Email</label>
-      <input type="email" placeholder="Email"  name="email" id="username">
+      <input type="email" placeholder="Email"  name="email" id="email" required>
+      <div class="error" id="emailError"></div>
 
       <label for="password">Password</label>
-      <input type="password" placeholder="password" name="password" id="password">
+      <input type="password" placeholder="password" name="password" id="password" required>'
+      <div class="error" id="passwordError"></div>
 
-      <label for="password">Confirm Password</label>
-      <input type="password" placeholder="passwo3rd" name="peassword" id="password">
+      <input type="password" placeholder="passwo3rd" name="confirmPassword" id="confirmPassword" required>
+      <div class="error" id="confirmPasswordError"></div>
       <button type="submit ">Sign UP</button>
+      <script src="/script/script1.js"></script>
   </form>
 </body>
 <% include('../layouts/footer.ejs') %>
