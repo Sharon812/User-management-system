@@ -1,5 +1,6 @@
 const users = require('../models/User')
 const bycrypt = require('bcrypt')
+const sweetalert = require('sweetalert')
 
 //converting into a hash string
 
@@ -122,6 +123,17 @@ const logoout = async (req,res) => {
         console.log(error.message)
     }
 }
+
+
+const willDelete = await swal({
+    title: "Welcome ",
+    icon: "info",
+    
+  });
+   
+  if (willDelete) {
+    swal("Deleted!", "Your imaginary file has been deleted!", "success");
+  }
 
 //exporting
 module.exports ={
