@@ -151,7 +151,12 @@ input{
       <div class="shape"></div>
   </div>
   <form>
-      <h3>Hello <%= user.name  %> </h3>
+    <% if (user) { %>
+      <h3>Hello <%= user.name %></h3>
+  <% } else { %>
+      <h3>Hello Guest</h3>
+  <% } %>
+  
 
       
       <div class="social parent-div">

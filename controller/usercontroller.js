@@ -1,6 +1,5 @@
 const users = require('../models/User')
 const bycrypt = require('bcrypt')
-const sweetalert = require('sweetalert')
 
 //converting into a hash string
 
@@ -86,6 +85,7 @@ const verifylogin = async (req,res) => {
        if(passwordmatch){
         //setting up session
           req.session.user_id = userdata._id;
+
            res.redirect('/home')
        }else{
         res.render('loginpage',{message:"Email and password is incorrect"})
@@ -125,15 +125,6 @@ const logoout = async (req,res) => {
 }
 
 
-const willDelete = await swal({
-    title: "Welcome ",
-    icon: "info",
-    
-  });
-   
-  if (willDelete) {
-    swal("Deleted!", "Your imaginary file has been deleted!", "success");
-  }
 
 //exporting
 module.exports ={

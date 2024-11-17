@@ -125,5 +125,12 @@ button{
         <input type="password" placeholder="Password" id="password" name="password">
 
         <button type="submit">Log In</button>
+        <% 
+        if(typeof message !== 'undefined'){
+             %>
+             <p style="color: red ;margin-top:12px;margin-left: 21px;"><%= message %></p>
+             <%
+        }
+         %>
     </form>
 <% include ('../layouts/footer.ejs') %>

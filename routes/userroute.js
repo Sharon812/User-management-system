@@ -3,8 +3,7 @@ const user_route = express();
 const session = require('express-session')
 const nocache = require('nocache')
 //exporting config
-const config = require('../config/config')
-
+//exporting auth
 const auth = require('../middleware/auth')
 //setting up session
 user_route.use(session({
@@ -25,7 +24,7 @@ user_route.set('views','./views/users')
 //user controller
 const usercontroller = require('../controller/usercontroller');
 //admin controller
-const admincontroller = require('../controller/admincontroller')
+// const admincontroller = require('../controller/admincontroller')
 
 //register route
 user_route.get('/register',auth.isLogout,usercontroller.loadregistrationpage);
@@ -43,15 +42,13 @@ user_route.get('/login',auth.isLogout,usercontroller.loginpage);
 //user home page verification
 user_route.post('/login',usercontroller.verifylogin)
 
-
-//admin login page route 
-user_route.get('/adminlogin',admincontroller.adminregist)
-
 //user home page route
 user_route.get('/home',auth.isLogin,usercontroller.renderuserhome)
 
 //logout from user homepage rout
 user_route.get('/logout',usercontroller.logoout)
 //exporting routes
+
+// //admin dashboard route
+// user_route.get('/admindashboard',authadmin.isAdminAuthenticated,admincontroller.admindashrender,)
 module.exports = user_route;
-////
