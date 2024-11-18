@@ -15,92 +15,182 @@
   
   </div>
     <div class="card">
-      <button id="add__new__list" type="button" class="btn btn-success position-absolute" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i> Add User </button>
 
-        <a href="/admin/logoutt"><button id="add__new__listr" type="button" class="btn btn-success position-absolute" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i> logout</button></a>
+      <div class="container mt-5">
+        <button class="btn btn-success hai position-absolute" id="add__new__list" data-toggle="modal" data-target="#addUserModal">Add User</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/admin/add-new" method="post">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="password">Password</label>
+                              <input type="password" class="form-control" id="password" name="password" required>
+                          </div>
+                            <button type="submit" class="btn btn-success">Add User</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+        <a href="/admin/logoutt"><button id="add__new__listr"  type="button" class="btn btn-success position-absolute" data-toggle="modal" data-target="#updateuser"><i class="fas fa-plus"></i> logout</button></a>
         <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">List Name</th>
-                <th scope="col">Deadline</th>
-                <th scope="col">Edit List </th>
-                <th scope="col">list info</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+              
+                <!-- <th scope="col">list info</th> -->
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>
-                    <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> edit</a>
-                    <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash-alt"></i> delete</a>    
-                </td>
-                <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a> </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>
-                    <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> edit</a>
-                    <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash-alt"></i> delete</a>    
-                </td>
-                <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a> </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>       
-                    <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> edit</a>
-                    <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash-alt"></i> delete</a> 
-                </td>
-                <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a> </td>
-              </tr>
+              <%
+                 if (user.length > 0) { 
+                 for (let i = 0; i < user.length; i++) { 
+                  %>
+                    <tr>
+                        <td scope="row"><%= i + 1 %></td>
+                        <input type="hidden" name="id" value="<%= user[i]._id %>">
+                        <td><%= user[i].name %></td>
+                        <td><%= user[i].email %> </td>
+                        
+                        <td>
+                          <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal" 
+        data-userid="<%= user[i]._id %>">
+  <i class="fa fa-trash-alt"></i> Delete
+</button>
+                          <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editUserModal" data-userid="<%= user[i]._id %>" data-username="<%= user[i].name %>" data-useremail="<%= user[i].email %>"> <i class="fa fa-edit"></i>Edit
+                          </button>
+                        </td>
+                    <tr>
+                  
+                            
+                        </td>
+                    </tr>
+                <% } %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">Users not found</td>
+                </tr>
+            <% } %>
             </tbody>
           </table>
     </div>
     <!-- Large modal -->
+    <!-- Edit User Modal -->
 
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
-          <div class="card-body text-center">
-            <h4 class="card-title">Special title treatment</h4>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          </div>
-            <div class=" card col-8 offset-2 my-2 p-3">
-          <form>
-            <div class="form-group">
-              <label for="listname">List name</label>
-              <input type="text" class="form-control" name="listname" id="listname" placeholder="Enter your listname">
-            </div>
-            <div class="form-group">
-              <label for="datepicker">Deadline</label>
-              <input  type="text" class="form-control" name="datepicker" id="datepicker" placeholder="Pick up a date">
-            </div>
-            <div class="form-group">
-                                    <label for="datepicker">Add a list item</label>
-                <div class="input-group">
-
-                  <input type="text" class="form-control" placeholder="Add an item" aria-label="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="button">Go!</button>
-                  </span>
-                </div>
-              </div>
-           <div class="form-group text-center">
-             <button type="submit" class="btn btn-block btn-primary">Sign in</button>
-          </div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this user?</p>
+        <form action="/admin/delete-user" method="POST">
+          <input type="hidden" id="deleteUserId" name="id">
+          <button type="submit" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </form>
-    </div>
+      </div>
     </div>
   </div>
 </div>
+
+
+
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/edit-user" method="POST">
+          <input type="hidden" id="editUserId" name="id">
+          <div class="form-group">
+            <label for="editUserName">Name</label>
+            <input type="text" class="form-control" id="editUserName" name="name" >
+          </div>
+          <div class="form-group">
+            <label for="editUserEmail">Email</label>
+            <input type="email" class="form-control" id="editUserEmail" name="email" >
+          </div>
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+
+
+
 </main>
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Get the Edit User Modal
+    const editUserModal = document.getElementById("editUserModal");
+
+    // Add click event listener to Edit buttons
+    $('#editUserModal').on('show.bs.modal', function (event) {
+      const button = $(event.relatedTarget); // Button that triggered the modal
+      const userId = button.data('userid');
+      const userName = button.data('username');
+      const userEmail = button.data('useremail');
+
+      // Populate the modal fields
+      $(this).find('#editUserId').val(userId);
+      $(this).find('#editUserName').val(userName);
+      $(this).find('#editUserEmail').val(userEmail);
+    });
+  });
+
+  
+  $(document).ready(function() {
+    $('#deleteUserModal').on('show.bs.modal', function(event) {
+      const button = $(event.relatedTarget); // Button that triggered the modal
+      const userId = button.data('userid'); // Get user ID from data-* attribute
+
+      // Populate the hidden input with the user ID
+      $(this).find('#deleteUserId').val(userId);
+    });
+  });
+
+</script>
 
 </body>
 <% include('../layouts/footer.ejs') %>

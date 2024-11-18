@@ -139,7 +139,17 @@ button{
 .newuser:hover{
     color: #ffffffad;
 }
-
+.hi{
+    background: red;
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+  padding-left: 10px !important;
+  margin-left: 110px;
+}
     </style>
 </head>
 <body>
@@ -158,11 +168,13 @@ button{
 
         <a href="/register" class="newuser">New User? Create a new account.</a>
         
-        <button>Log In</button>
-        <div class="social">
+        <button style="margin-bottom: 30px;" >Log In</button>
+        <!-- <div class="social">
           <div class="go"><i class="fab fa-google"></i>  Google</div>
           <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
-        </div>
+        </div> -->
+        <a style="padding-left: 120px;margin-top: 20px; text-decoration: none;" class="hi" href="/">Go Back</a>
+
         <% 
         if(typeof message !== 'undefined'){
              %>
