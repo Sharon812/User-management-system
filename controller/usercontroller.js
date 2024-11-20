@@ -67,9 +67,7 @@ const landingpage = async (req,res) => {
     }
 }
 //to render to create new user in login page
-const rendertoregis = async (req,res) => {
-     res.render('registration')
-}
+
 
 //to verify login
 const verifylogin = async (req,res) => {
@@ -85,15 +83,14 @@ const verifylogin = async (req,res) => {
        if(passwordmatch){
         //setting up session
           req.session.user_id = userdata._id;
-
-           res.redirect('/home')
+          return res.redirect('/home')
        }else{
-        res.render('loginpage',{message:"Email and password is incorrect"})
+       res.render('loginpage',{message:"Email and password is incorrect"})
        }    
 
        }else{
         console.log("here")
-        res.render('loginpage',{message:"Email and Password is incorrect"})
+           res.render('loginpage',{message:"Email and Password is incorrect"})
        }
 
 
@@ -107,7 +104,7 @@ const renderuserhome = async (req,res) => {
     try {
     const userhome = await users.findById( req.session.user_id )
        console.log(userhome)
-        res.render('userhomepage',{ user: userhome });
+         res.render('userhomepage',{ user: userhome });
        
     } catch (error) {
         console.log(error)
@@ -132,7 +129,7 @@ module.exports ={
     insertUser,
     landingpage,
     loginpage,
-    rendertoregis,
+    // rendertoregis,
     renderuserhome,
     verifylogin,
     logoout

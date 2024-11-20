@@ -16,26 +16,27 @@ const flash = require('express-flash')
 admin_route.use(flash())
 admin_route.use(nocache())
 //initialising bodyparserrsz
-;
+
 
 admin_route.set('view engine','ejs');
 admin_route.set('views','./views/admin')
 
 const auth = require('../middleware/authadmin')
+const user = require('../middleware/auth')
 
 
 const admincontroller = require('../controller/admincontroller');
 //admin login page rendering
-admin_route.get('/',auth.islogout,admincontroller.adminregist)
+admin_route.get('/',auth.islogout,user.isLogout,admincontroller.adminregist)
 
 //admin login page post verification
 admin_route.post('/',admincontroller.verifyadmin)
 
 //dashboard rendering
-admin_route.get('/dashboard', auth.isLogin, admincontroller.admindashrender)
+admin_route.get('/dashboard', auth.isLogin, user.isLogout,admincontroller.admindashrender)
 
 //logout admin dash
-admin_route.get('/logoutt',auth.isLogin, admincontroller.logout)
+admin_route.get('/logoutt',auth.isLogin,user.isLogout, admincontroller.logout)
 
 //to add new user
 admin_route.post('/add-new',admincontroller.addnewuser)

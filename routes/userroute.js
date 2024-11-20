@@ -24,26 +24,26 @@ user_route.set('views','./views/users')
 //user controller
 const usercontroller = require('../controller/usercontroller');
 //admin controller
-// const admincontroller = require('../controller/admincontroller')
+const admin = require('../middleware/authadmin')
 
 //register route
-user_route.get('/register',auth.isLogout,usercontroller.loadregistrationpage);
+user_route.get('/register',auth.isLogout,admin.isligin,usercontroller.loadregistrationpage);
 user_route.post('/register',usercontroller.insertUser);
 
 //landing page route
-user_route.get('/',auth.isLogout,usercontroller.landingpage);
+user_route.get('/',auth.isLogout,admin.isligin,usercontroller.landingpage);
 
 //to go to login page from landingp page
 
 
 
 //login page route
-user_route.get('/login',auth.isLogout,usercontroller.loginpage);
+user_route.get('/login',auth.isLogout,admin.isligin,usercontroller.loginpage);
 //user home page verification
 user_route.post('/login',usercontroller.verifylogin)
 
 //user home page route
-user_route.get('/home',auth.isLogin,usercontroller.renderuserhome)
+user_route.get('/home',auth.isLogin,admin.isligin,usercontroller.renderuserhome)
 
 //logout from user homepage rout
 user_route.get('/logout',usercontroller.logoout)

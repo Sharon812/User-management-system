@@ -26,8 +26,20 @@ const islogout = async (req, res, next) => {
         res.status(500).send('Internal Server Error');
     }
 };
+const isligin = async (req,res,next) => {
+    try {
+        if(req.session.admin){
+            return res.redirect('/admin/dashboard');
+        }else{
+            return next()
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 
 module.exports = {
     isLogin,
-    islogout
+    islogout,
+    isligin
 };
