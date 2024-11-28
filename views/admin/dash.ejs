@@ -3,105 +3,111 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/style.css">
-<!------ Include the above in your HEAD tag ---------->
 
 <body>
-
-<!---->
 <main>
 <div class="container my-5">
-       <div class="card-body text-center">
-    <h1 class="card-title">Welcome Admin</h1>
-  
-  </div>
+    <div class="card-body text-center">
+        <h1 class="card-title">Welcome Admin</h1>
+    </div>
     <div class="card">
+        <div class="container mt-5">
+            <!-- Add Search Bar -->
+            <form action="/admin/search" method="get" class="form-inline mb-3">
+              <input 
+                  type="text" 
+                  name="query" 
+                  class="form-control mr-2" 
+                  placeholder="Search users..." 
+                  value="<%= searchQuery || '' %>"
+              />
+              <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+          
+            <!-- Add User Button -->
+            <button class="btn btn-success hai position-absolute" id="add__new__list" data-toggle="modal" data-target="#addUserModal">Add User</button>
 
-      <div class="container mt-5">
-        <button class="btn btn-success hai position-absolute" id="add__new__list" data-toggle="modal" data-target="#addUserModal">Add User</button>
+            <!-- Modal -->
+            <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/admin/add-new" method="post" id="validationForm">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <div class="error" id="nameError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <div class="error" id="emailError"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <div class="error" id="passwordError"></div>
+                                </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/admin/add-new" method="post">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                              <label for="password">Password</label>
-                              <input type="password" class="form-control" id="password" name="password" required>
-                          </div>
-                            <button type="submit" class="btn btn-success">Add User</button>
-                        </form>
+                               
+                              
+                              
+                                <button type="submit" class="btn btn-success">Add User</button>
+                                <script src="/script/script.js"></script>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
-
-
-        <a href="/admin/logoutt"><button id="add__new__listr"  type="button" class="btn btn-success position-absolute" data-toggle="modal" data-target="#updateuser"><i class="fas fa-plus"></i> logout</button></a>
+        <!-- Logout Button -->
+        <a href="/admin/logoutt"><button id="add__new__listr" type="button" class="btn btn-success position-absolute"><i class="fas fa-plus"></i> Logout</button></a>
+        <!-- User Table -->
         <table class="table table-hover">
             <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-              
-                <!-- <th scope="col">list info</th> -->
-              </tr>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Actions</th>
+                </tr>
             </thead>
             <tbody>
-              <%
-                 if (user.length > 0) { 
-                 for (let i = 0; i < user.length; i++) { 
-                  %>
+                <% if (user.length > 0) { 
+                    for (let i = 0; i < user.length; i++) { %>
+                        <tr>
+                            <td scope="row"><%= i + 1 %></td>
+                            <input type="hidden" name="id" value="<%= user[i]._id %>">
+                            <td><%= user[i].name %></td>
+                            <td><%= user[i].email %></td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal" data-userid="<%= user[i]._id %>">
+                                    <i class="fa fa-trash-alt"></i> Delete
+                                </button>
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editUserModal" data-userid="<%= user[i]._id %>" data-username="<%= user[i].name %>" data-useremail="<%= user[i].email %>">
+                                    <i class="fa fa-edit"></i> Edit
+                                </button>
+                            </td>
+                        </tr>
+                    <% }
+                } else { %>
                     <tr>
-                        <td scope="row"><%= i + 1 %></td>
-                        <input type="hidden" name="id" value="<%= user[i]._id %>">
-                        <td><%= user[i].name %></td>
-                        <td><%= user[i].email %> </td>
-                        
-                        <td>
-                          <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal" 
-        data-userid="<%= user[i]._id %>">
-  <i class="fa fa-trash-alt"></i> Delete
-</button>
-                          <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editUserModal" data-userid="<%= user[i]._id %>" data-username="<%= user[i].name %>" data-useremail="<%= user[i].email %>"> <i class="fa fa-edit"></i>Edit
-                          </button>
-                        </td>
-                    <tr>
-                  
-                            
-                        </td>
+                        <td colspan="4">Users not found</td>
                     </tr>
                 <% } %>
-            <% } else { %>
-                <tr>
-                    <td colspan="4">Users not found</td>
-                </tr>
-            <% } %>
             </tbody>
-          </table>
+        </table>
     </div>
-    <!-- Large modal -->
-    <!-- Edit User Modal -->
+</div>
 
-    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -134,31 +140,33 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/admin/edit-user" method="POST">
+        <form action="/admin/edit-user" method="POST" id="validationFormm">
           <input type="hidden" id="editUserId" name="id">
           <div class="form-group">
             <label for="editUserName">Name</label>
             <input type="text" class="form-control" id="editUserName" name="name" >
+            <div class="error" id="nameErrorr"></div>
           </div>
           <div class="form-group">
             <label for="editUserEmail">Email</label>
             <input type="email" class="form-control" id="editUserEmail" name="email" >
+            <div class="error" id="emailErrorr"></div>
           </div>
           <button type="submit" class="btn btn-success">Save Changes</button>
-        </form>
+          <script src="/script/scriptedit.js"></script>        
+          </form>
       </div>
     </div>
   </div>
 </div>
 
-
-
-
-
-
 </main>
 <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
 
     <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -191,6 +199,5 @@
   });
 
 </script>
-
 </body>
 <% include('../layouts/footer.ejs') %>

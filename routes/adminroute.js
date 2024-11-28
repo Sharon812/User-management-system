@@ -47,6 +47,9 @@ admin_route.post('/edit-user',admincontroller.edituser)
 //to deleteuser
 admin_route.post('/delete-user',admincontroller.deleteuser)
 
+//to search
+admin_route.get('/search',admincontroller.searchUsers)
+
 // admin_route.get('/admin/new-user',auth.isLogin,admincontroller)
 
 module.exports= admin_route;

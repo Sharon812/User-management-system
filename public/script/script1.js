@@ -2,10 +2,12 @@ const form = document.getElementById("validationForm");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirmPassword");
+const nameInput = document.getElementById("name")
 
 const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 const confirmPasswordError = document.getElementById("confirmPasswordError");
+const nameError = document.getElementById("nameError")
 
 form.addEventListener("submit", (event) => {
     let valid = true;
@@ -14,6 +16,16 @@ form.addEventListener("submit", (event) => {
     emailError.textContent = "";
     passwordError.textContent = "";
     confirmPasswordError.textContent = "";
+    nameError.textContent = "";
+
+
+    const nameValue = nameInput.value;
+    const nameRegex = /^([A-Z])/; // At least 8 characters, one capital letter
+    if (!nameRegex.test(nameValue)) {
+        nameError.textContent = "Enter a valid name";
+        valid = false;
+    }
+
 
     // Email Validation
     const emailValue = emailInput.value;

@@ -33,14 +33,15 @@ const verifyadmin = async (req, res) => {
 };
 
 //admin render
-const admindashrender = async(req,res) => {
+const admindashrender = async (req, res) => {
     try {
-        const userdata =  await users.find({});
-        res.render('dash',{user: userdata})
+        const userdata = await users.find({});
+        res.render('dash', { user: userdata, searchQuery: "" }); // Pass searchQuery as an empty string
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
     }
-}
+};
+
 
 //logout 
 const logout = async (req,res) => {
@@ -104,7 +105,30 @@ const edituser = async (req, res) => {
       res.status(500).send("An error occurred while deleting the user.");
     }
   };
-  
+  //to enable search option
+  // Search users
+const searchUsers = async (req, res) => {
+    try {
+        const { query } = req.query; // Get the search query from the request
+
+        let filter = {};
+        if (query) {
+            filter = {
+                $or: [
+                    { name: { $regex: query, $options: "i" } }, // Case-insensitive match for name
+                    { email: { $regex: query, $options: "i" } } // Case-insensitive match for email
+                ]
+            };
+        }
+
+        const userdata = await users.find(filter); // Find users matching the filter
+        res.render('dash', { user:userdata,searchQuery:query || "" });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("An error occurred while searching for users.");
+    }
+};
+
   
 
 
@@ -115,5 +139,6 @@ module.exports = {
     logout,
     addnewuser,
     edituser,
-    deleteuser
+    deleteuser,
+    searchUsers
 }

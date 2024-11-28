@@ -14,7 +14,7 @@ user_route.use(session({
 user_route.use(nocache())
 
 //initialising bodyparserrsz
-user_route.use(express.json());
+user_route.use(express.json());-
 user_route.use(express.urlencoded({ extended: true }));
 
 //setting view engine
@@ -32,7 +32,7 @@ user_route.post('/register',usercontroller.insertUser);
 
 //landing page route
 user_route.get('/',auth.isLogout,admin.isligin,usercontroller.landingpage);
-
+``
 //to go to login page from landingp page
 
 
