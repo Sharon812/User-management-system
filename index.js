@@ -12,7 +12,7 @@ app.use('/',userroute);
 //for admin route
 const adminroute = require('./routes/adminroute')
 app.use('/admin',adminroute);
-//server port 
+//server port
 app.listen(3001,() => {
     console.log("server started on port ")
 })
