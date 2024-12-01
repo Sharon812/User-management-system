@@ -1,8 +1,6 @@
 const User = require('../models/User')
 const users = require('../models/User')
 const bycrypt = require('bcrypt')
-
-
 //admin page rendering
 const adminregist = async (req,res) => {
     try {

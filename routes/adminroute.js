@@ -16,8 +16,6 @@ const flash = require('express-flash')
 admin_route.use(flash())
 admin_route.use(nocache())
 //initialising bodyparserrsz
-
-
 admin_route.set('view engine','ejs');
 admin_route.set('views','./views/admin')
 
