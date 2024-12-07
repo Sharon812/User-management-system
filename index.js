@@ -11,8 +11,9 @@ app.use('/',userroute);
 const adminroute = require('./routes/adminroute')
 app.use('/admin',adminroute);
 
+//servre port
 //server port
 app.listen(3001,() => {
-    console.log("server started on port ")
+    console.log("server started on port 3001 ")
 })
 
