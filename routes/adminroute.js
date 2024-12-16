@@ -50,4 +50,5 @@ admin_route.get('/search',admincontroller.searchUsers)
 
 // admin_route.get('/admin/new-user',auth.isLogin,admincontroller)
 
+admin_route.get("/dashboard/contact", auth.isLogin, admincontroller.contact);
 module.exports= admin_route;
